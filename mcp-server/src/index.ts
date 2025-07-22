@@ -1,13 +1,28 @@
-import { Express } from 'express';
-import express from 'express';
-import dotenv from 'dotenv';
+import express from "express";
+import dotenv from "dotenv";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
+import { registerTools } from "./modules/tools";
+import registerPrompts from "./modules/prompts";
+import { setupSSEEndpoint, setupMessageEndpoint } from "./modules/transports";
 
 dotenv.config();
 
-const app: Express = express();
+const server = new McpServer({
+  name: "mcp-server",
+  version: "1.0.0",
+});
 
-const port = process.env.PORT || 3000;
+// Register tools and prompts
+registerTools(server);
+registerPrompts(server);
 
+const app = express();
+
+// Setup endpoints
+setupSSEEndpoint(server, app);
+setupMessageEndpoint(app);
+
+const port = parseInt(process.env.PORT || "4000", 10);
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`MCP server is running on port ${port}`);
 });
