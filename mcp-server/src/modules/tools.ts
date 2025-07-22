@@ -1,20 +1,17 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import  * as z from "zod";
+
 export const registerTools = (mcpServer: McpServer) => {
     mcpServer.tool(
         "math-tool",
         {
-            inputSchema: {
-                type: "object",
-                properties: {
-                num1: { type: "number" },
-                num2: { type: "number" }
-                },
-                required: ["num1", "num2"]
-            }
-        },
+            operation: z.enum(["add", "subtract", "multiply", "divide"]),
+            num1: z.number(),
+            num2: z.number(),
+     },
         async ( args ) => {
             const { operation, num1, num2 } = args;
-            console.log(`Received operation: ${args}`);
+            console.log(`Received operation: ${JSON.stringify(args)}`);
             let result: number;
 
             switch (operation) {
