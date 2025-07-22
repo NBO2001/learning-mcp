@@ -1,9 +1,9 @@
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import { Request, Response } from 'express';
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { Express } from 'express';
 
-const transports: { [sessionId: string]: SSEServerTransport } = {}
+const transports: { [sessionId: string]: SSEServerTransport } = {};
 
 export const setupSSEEndpoint = (mcpServer: McpServer, app: Express) => {
     app.get('/sse', async (_: Request, res: Response) => {

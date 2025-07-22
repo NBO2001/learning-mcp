@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerPrompts = void 0;
 const registerPrompts = (server) => {
     // Simple prompt without arguments to avoid Zod schema issues
-    server.prompt("echo", "A simple prompt that returns a predefined message.", async (_extra) => {
+    server.prompt("echo", "A simple prompt that returns a predefined message.", async () => {
         return {
             messages: [{
                     role: "user",

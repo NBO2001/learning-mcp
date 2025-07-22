@@ -23,7 +23,7 @@ const setupSSEEndpoint = (mcpServer, app) => {
     });
 };
 exports.setupSSEEndpoint = setupSSEEndpoint;
-const setupMessageEndpoint = (mcpServer, app) => {
+const setupMessageEndpoint = (app) => {
     app.post('/messages', async (req, res) => {
         const sessionId = req.query.sessionId;
         const transport = transports[sessionId] ?? Object.values(transports)[0];

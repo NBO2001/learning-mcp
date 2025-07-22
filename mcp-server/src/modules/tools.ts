@@ -1,7 +1,4 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-
-import { z } from "zod";
-
 export const registerTools = (mcpServer: McpServer) => {
     mcpServer.tool(
         "math-tool",

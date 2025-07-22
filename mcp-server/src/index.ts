@@ -1,8 +1,9 @@
-import express from "express";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import dotenv from "dotenv";
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
+import express from "express";
+
+import { registerPrompts } from "./modules/prompts";
 import { registerTools } from "./modules/tools";
-import registerPrompts from "./modules/prompts";
 import { setupSSEEndpoint, setupMessageEndpoint } from "./modules/transports";
 
 dotenv.config();
