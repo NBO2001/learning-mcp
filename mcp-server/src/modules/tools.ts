@@ -1,17 +1,17 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import  * as z from "zod";
+import z from "zod";
 
 export const registerTools = (mcpServer: McpServer) => {
     mcpServer.tool(
         "math-tool",
+        "Perform basic math operations",
         {
             operation: z.enum(["add", "subtract", "multiply", "divide"]),
-            num1: z.number(),
-            num2: z.number(),
-     },
-        async ( args ) => {
-            const { operation, num1, num2 } = args;
-            console.log(`Received operation: ${JSON.stringify(args)}`);
+            num1: z.number().default(0),
+            num2: z.number().default(0),
+        },
+        async ( { operation, num1, num2 } ) => {
+            
             let result: number;
 
             switch (operation) {
@@ -34,7 +34,12 @@ export const registerTools = (mcpServer: McpServer) => {
                     throw new Error("Invalid operation");
             }
             return {
-                content: [{ type: "text", text: `Result: ${result}` }],
+                content: [
+                    { 
+                        type: "text", 
+                        text: `Result: ${result}` 
+                    }
+                ],
             };
         }
     )
